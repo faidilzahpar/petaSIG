@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Peta Interaktif - CrootJS</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+        body {
+            margin: 0;
+            padding: 16px;
+            font-family: Arial, sans-serif;
+            background-color: #f8fafc;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .main-container {
+            display: grid;
+            grid-template-columns: 280px 1fr 260px;
+            gap: 16px;
+            height: calc(100vh - 32px);
+            width: 100%;
+        }
+
+        .card {
+            background: white;
+            padding: 16px;
+            border-radius: 12px;
+            border: 1px solid #e2e8f0;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
+        }
+        .card h3 {
+            margin-top: 0;
+            margin-bottom: 12px;
+            font-size: 1.1rem;
+            color: #1e293b;
+        }
+
+        /* Kolom Kiri: Daftar Lokasi */
+        #card-daftar {
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            overflow: hidden;
+        }
+        #list-geojson {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+            flex: 1;
+            overflow-y: auto;
+        }
+        #list-geojson li.item-lokasi {
+            margin-bottom: 6px;
+            padding: 6px 10px;
+            background: #ffffff;
+            border: 1px solid #f1f5f9;
+            border-radius: 6px;
+            color: #334155;
+            font-size: 0.88rem;
+            line-height: 1.4;
+        }
+        #list-geojson li.item-lokasi:hover {
+            background-color: #f8fafc;
+            border-color: #e2e8f0;
+        }
+
+        /* Pembatas Antar Kategori */
+        .kategori-divider {
+            border: none;
+            border-top: 2px dashed #cbd5e1;
+            margin: 18px 0 14px 0;
+            padding: 0;
+            list-style: none;
+        }
+
+        /* Judul Pemisah Kategori */
+        .kategori-title {
+            font-weight: 700;
+            font-size: 0.92rem;
+            padding: 8px 10px;
+            border-radius: 6px;
+            margin-top: 6px;
+            margin-bottom: 8px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 2;
+            border: 1px solid #e2e8f0;
+        }
+        .kategori-title.border-polygon {
+            border-left: 4px solid #3b82f6;
+            background: #eff6ff;
+            color: #1e40af;
+        }
+        .kategori-title.border-polyline {
+            border-left: 4px solid #10b981;
+            background: #ecfdf5;
+            color: #065f46;
+        }
+        .kategori-title.border-point {
+            border-left: 4px solid #f59e0b;
+            background: #fffbeb;
+            color: #92400e;
+        }
+
+        .badge-count {
+            background-color: rgba(255, 255, 255, 0.85);
+            font-size: 0.75rem;
+            padding: 2px 7px;
+            border-radius: 9999px;
+            font-weight: 600;
+            border: 1px solid rgba(0, 0, 0, 0.08);
+        }
+
+        /* Kolom Tengah: Peta */
+        #card-peta {
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            padding: 12px;
+        }
+        #peta {
+            width: 100%;
+            height: 100%;
+            min-height: 350px;
+            flex: 1;
+            border-radius: 8px;
+            border: 1px solid #e2e8f0;
+        }
+
+        /* Kolom Kanan: Koordinat Terpilih */
+        #card-koordinat {
+            height: fit-content;
+        }
+        #info-koordinat {
+            color: #334155;
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+
+        /* Responsif untuk Layar Tablet & Mobile */
+        @media (max-width: 900px) {
+            body {
+                height: auto;
+                overflow: auto;
+            }
+            .main-container {
+                grid-template-columns: 1fr;
+                height: auto;
+            }
+            #card-peta {
+                order: 1;
+                height: 400px;
+            }
+            #card-koordinat {
+                order: 2;
+            }
+            #card-daftar {
+                order: 3;
+                height: 360px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="main-container">
+        <!-- Kiri: Daftar Lokasi -->
+        <div class="card" id="card-daftar">
+            <h3>Daftar Lokasi</h3>
+            <ul id="list-geojson">
+                <li>Memuat data...</li>
+            </ul>
+        </div>
+
+        <!-- Tengah: Map Full Atas ke Bawah -->
+        <div class="card" id="card-peta">
+            <div id="peta"></div>
+        </div>
+
+        <!-- Kanan: Koordinat Terpilih -->
+        <div class="card" id="card-koordinat">
+            <h3>Koordinat Terpilih</h3>
+            <div id="info-koordinat">
+                <em>Klik lokasi mana saja di peta untuk melihat koordinatnya.</em>
+            </div>
+        </div>
+    </div>
+
+    <script type="module" src="croot.js"></script>
+</body>
+</html>
