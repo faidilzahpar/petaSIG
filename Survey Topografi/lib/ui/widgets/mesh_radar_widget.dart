@@ -184,3 +184,4 @@ class _MeshRadarPainter extends CustomPainter {
   @override
   bool shouldRepaint(covariant _MeshRadarPainter oldDelegate) => true;
 }
+

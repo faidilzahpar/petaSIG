@@ -63,3 +63,4 @@ class GeoJsonExporter {
     return const JsonEncoder.withIndent('  ').convert(geoJson);
   }
 }
+

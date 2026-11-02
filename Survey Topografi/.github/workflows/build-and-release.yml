@@ -115,3 +115,4 @@ jobs:
           files: |
             build/app/outputs/flutter-apk/TopoMesh-Surveyor-v1.0-Universal.apk
             build/app/outputs/flutter-apk/SHA256SUMS.txt
+

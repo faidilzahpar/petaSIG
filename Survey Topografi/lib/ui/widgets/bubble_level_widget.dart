@@ -141,3 +141,4 @@ class _BubbleIndicator extends StatelessWidget {
     );
   }
 }
+

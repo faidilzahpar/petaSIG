@@ -63,3 +63,4 @@ class SurveyPoint {
     'sensors': {'baro': baroPressure, 'poleHeight': poleHeight, 'groundZ': groundElevation},
   };
 }
+

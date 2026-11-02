@@ -119,3 +119,4 @@ class UtmCoordinate {
   @override
   String toString() => 'UTM Zone $zone${isNorthernHemisphere ? "N" : "S"} E: ${easting.toStringAsFixed(2)} N: ${northing.toStringAsFixed(2)}';
 }
+

@@ -80,3 +80,4 @@ class DxfExporter {
     sb.writeln('0\nLAYER\n2\n$name\n70\n0\n62\n$color\n6\nCONTINUOUS');
   }
 }
+

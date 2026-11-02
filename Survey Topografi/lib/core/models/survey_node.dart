@@ -82,3 +82,4 @@ class SurveyNode {
     return 0.4;
   }
 }
+

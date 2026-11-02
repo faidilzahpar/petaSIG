@@ -189,3 +189,4 @@ class BleMeshService {
     pathLossExponent = calculatedN.clamp(1.8, 3.5);
   }
 }
+

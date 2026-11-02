@@ -205,3 +205,4 @@ class _TopoCanvasPainter extends CustomPainter {
   @override
   bool shouldRepaint(covariant _TopoCanvasPainter oldDelegate) => true;
 }
+

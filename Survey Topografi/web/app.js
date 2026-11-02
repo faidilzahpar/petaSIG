@@ -578,3 +578,4 @@ function downloadFile(content, fileName, mimeType) {
   a.click();
   document.body.removeChild(a);
 }
+

@@ -124,3 +124,4 @@ Karena $P_{\text{base}}(t)$ dan $P_{\text{rover}}(t)$ diukur secara serentak pad
    - Segmen garis kontur dibedakan menjadi:
      - **Kontur Intermediet** (tipis, interval default $0.5\text{m}$).
      - **Kontur Indeks** (tebal, setiap kelipatan $5 \times$ interval, disertai label elevasi).
+
