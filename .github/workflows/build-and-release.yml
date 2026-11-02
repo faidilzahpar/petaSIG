@@ -1,0 +1,114 @@
+name: Build & Release Android APK
+
+on:
+  push:
+    tags:
+      - 'v*'
+    branches:
+      - main
+  workflow_dispatch:
+    inputs:
+      tag_name:
+        description: 'Nama Tag Rilis (contoh: v1.0.0)'
+        required: false
+        default: ''
+      release_title:
+        description: 'Judul Rilis'
+        required: false
+        default: 'TopoMesh Geodetic Surveyor - Release APK'
+
+permissions:
+  contents: write
+
+jobs:
+  build-and-release:
+    name: Compile APK & Publish Release
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 1. Checkout Source Code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: 2. Set Up Java JDK 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+          cache: 'gradle'
+
+      - name: 3. Set Up Flutter SDK
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.24.x'
+          channel: 'stable'
+          cache: true
+
+      - name: 4. Get Dependencies
+        working-directory: "Survey Topografi"
+        run: |
+          flutter pub get
+
+      - name: 5. Verify & Run Tests
+        working-directory: "Survey Topografi"
+        run: |
+          flutter test --no-pub
+
+      - name: 6. Build Release APK (Universal)
+        working-directory: "Survey Topografi"
+        run: |
+          flutter build apk --release
+          cp build/app/outputs/flutter-apk/app-release.apk build/app/outputs/flutter-apk/TopoMesh-Surveyor-v1.0-Universal.apk
+          cd build/app/outputs/flutter-apk/
+          sha256sum TopoMesh-Surveyor-v1.0-Universal.apk > SHA256SUMS.txt
+          cat SHA256SUMS.txt
+
+      - name: 7. Determine Release Tag
+        id: tagger
+        run: |
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ] && [ -n "${{ github.event.inputs.tag_name }}" ]; then
+            TAG="${{ github.event.inputs.tag_name }}"
+          elif [[ "${{ github.ref }}" == refs/tags/* ]]; then
+            TAG="${GITHUB_REF#refs/tags/}"
+          else
+            TAG="v1.0.${{ github.run_number }}"
+            git config user.name "github-actions[bot]"
+            git config user.email "github-actions[bot]@users.noreply.github.com"
+            git tag -a "$TAG" -m "Automated Release $TAG [skip ci]"
+            git push origin "$TAG" || true
+          fi
+          echo "tag=$TAG" >> $GITHUB_OUTPUT
+          echo "Release tag is: $TAG"
+
+      - name: 8. Create GitHub Release & Upload APK
+        uses: softprops/action-gh-release@v2
+        if: startsWith(github.ref, 'refs/tags/') || github.event_name == 'workflow_dispatch' || github.ref == 'refs/heads/main'
+        with:
+          tag_name: ${{ steps.tagger.outputs.tag }}
+          name: ${{ github.event.inputs.release_title || steps.tagger.outputs.tag }} - TopoMesh Android Survey APK
+          draft: false
+          prerelease: false
+          generate_release_notes: true
+          body: |
+            ## 📱 TopoMesh Geodetic Surveyor - Kompilasi APK Otomatis
+            
+            Rilis APK otomatis hasil kompilasi GitHub Actions Workflow untuk alat ukur survei topografi multi-device.
+            
+            ### ✨ Fitur Unggulan:
+            - **Trileterasi & Multilaterasi BLE**: Mengatasi batas akurasi GPS HP 10M dengan akurasi sub-meter menggunakan minimal 3 handphone (Anchor A, B, C & Rover).
+            - **Altimetri Barometrik Diferensial**: Mengukur beda tinggi permukaan (Z) secara presisi tinggi dengan mengeliminasi drift cuaca atmosfir terhadap Base Station.
+            - **Jaring Segitiga TIN (Triangulated Irregular Network)**: Delaunay triangulation realtime langsung di lapangan.
+            - **Kontur Topografi Realtime**: Interpolasi Marching Triangles dengan interval kontur fleksibel (0.25m - 2.0m).
+            - **Waterpass Digital (Plumb Level)**: Memastikan jalon survei tegak lurus (< 2°) saat titik direkam.
+            - **Ekspor Profesional**: Ekspor langsung ke format **CSV (PNEZD)**, **GeoJSON**, dan **AutoCAD DXF 3D**.
+            
+            ### 📥 Unduh File Instalasi:
+            - **Universal APK**: `TopoMesh-Surveyor-v1.0-Universal.apk` (Cocok untuk semua perangkat Android 5.0+)
+            - **Verifikasi SHA256**: Lihat `SHA256SUMS.txt`
+            
+            ---
+            *Dikompilasi otomatis oleh GitHub Actions Workflow.*
+          files: |
+            Survey Topografi/build/app/outputs/flutter-apk/TopoMesh-Surveyor-v1.0-Universal.apk
+            Survey Topografi/build/app/outputs/flutter-apk/SHA256SUMS.txt

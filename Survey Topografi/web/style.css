@@ -1,0 +1,514 @@
+/* TopoMesh Geodetic Surveyor - Industrial GIS Styling */
+:root {
+  --bg-dark: #0D1117;
+  --surface-dark: #161B22;
+  --card-dark: #21262D;
+  --border-dark: #30363D;
+  --laser-cyan: #00F0FF;
+  --safety-amber: #FF9F1C;
+  --status-green: #00E676;
+  --alert-red: #FF4D4F;
+  --text-light: #F0F6FC;
+  --text-muted: #8B949E;
+  --font-mono: 'SF Mono', 'Roboto Mono', 'JetBrains Mono', Menlo, Consolas, monospace;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  -webkit-tap-highlight-color: transparent;
+}
+
+body {
+  background-color: var(--bg-dark);
+  color: var(--text-light);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  overflow-x: hidden;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+#app {
+  max-width: 480px;
+  margin: 0 auto;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Header */
+.app-header {
+  background-color: var(--surface-dark);
+  border-bottom: 1px solid var(--border-dark);
+  padding: 10px 14px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.badge-brand {
+  background: var(--safety-amber);
+  color: #000;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 900;
+  padding: 2px 6px;
+  border-radius: 2px;
+}
+
+.brand-title {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+
+.header-status {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--text-light);
+}
+
+.status-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--status-green);
+  display: inline-block;
+}
+
+/* Main Content */
+.main-content {
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* Telemetry Card */
+.telemetry-card {
+  background: var(--surface-dark);
+  border: 1px solid var(--border-dark);
+  border-radius: 4px;
+  padding: 12px;
+}
+
+.hud-top-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 6px;
+}
+
+.hud-subtitle {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  color: var(--text-muted);
+  letter-spacing: 0.5px;
+}
+
+.pill-badge {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  font-weight: bold;
+  padding: 2px 6px;
+  border-radius: 2px;
+}
+
+.pill-green {
+  background: rgba(0, 230, 118, 0.15);
+  color: var(--status-green);
+  border: 1px solid var(--status-green);
+}
+
+.elevation-display {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+  margin-bottom: 10px;
+}
+
+.mono-huge {
+  font-family: var(--font-mono);
+  font-size: 34px;
+  font-weight: 900;
+  letter-spacing: -1px;
+}
+
+.unit-label {
+  font-family: var(--font-mono);
+  font-size: 14px;
+  font-weight: bold;
+  color: var(--laser-cyan);
+}
+
+.delta-box {
+  margin-left: auto;
+  background: var(--card-dark);
+  padding: 4px 8px;
+  border-radius: 3px;
+  text-align: right;
+}
+
+.delta-label {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 8px;
+  color: var(--text-muted);
+}
+
+.delta-val {
+  font-size: 13px;
+  font-weight: bold;
+  color: var(--status-green);
+}
+
+.hud-grid-metrics {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 6px;
+  margin-bottom: 8px;
+}
+
+.metric-box {
+  background: var(--card-dark);
+  padding: 6px;
+  border-radius: 2px;
+}
+
+.m-label {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 8px;
+  color: var(--text-muted);
+}
+
+.m-val {
+  font-size: 11px;
+  font-weight: bold;
+  color: var(--laser-cyan);
+}
+
+.hud-coords-bar {
+  background: rgba(33, 38, 45, 0.6);
+  padding: 6px 8px;
+  border-radius: 2px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.mono-small {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  color: var(--text-muted);
+}
+
+/* Spirit Level & Pole Row */
+.level-pole-row {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.spirit-level-container {
+  width: 96px;
+  height: 96px;
+  position: relative;
+  background: var(--surface-dark);
+  border: 1px solid var(--border-dark);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.tilt-badge {
+  position: absolute;
+  bottom: 4px;
+  background: rgba(0, 0, 0, 0.7);
+  padding: 1px 4px;
+  border-radius: 2px;
+  font-size: 10px;
+  font-weight: bold;
+}
+
+.pole-details-card {
+  flex-grow: 1;
+  background: var(--surface-dark);
+  border: 1px solid var(--border-dark);
+  border-radius: 4px;
+  padding: 8px 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.pole-status-header {
+  display: flex;
+  justify-content: space-between;
+  font-size: 10px;
+}
+
+.status-plumb {
+  font-weight: bold;
+  color: var(--status-green);
+}
+
+.pole-tol {
+  color: var(--text-muted);
+  font-size: 9px;
+}
+
+.pole-input-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.mono-select, .mono-select-small {
+  background: var(--card-dark);
+  color: var(--laser-cyan);
+  border: 1px solid var(--border-dark);
+  border-radius: 2px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  padding: 3px 6px;
+  outline: none;
+}
+
+.feature-code-bar {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.code-chips {
+  display: flex;
+  gap: 4px;
+  overflow-x: auto;
+}
+
+.chip {
+  background: var(--card-dark);
+  border: 1px solid var(--border-dark);
+  color: var(--text-light);
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: bold;
+  padding: 3px 6px;
+  border-radius: 2px;
+  cursor: pointer;
+}
+
+.chip.active {
+  background: var(--safety-amber);
+  color: #000;
+  border-color: var(--safety-amber);
+}
+
+/* Radar Card */
+.radar-card {
+  background: var(--surface-dark);
+  border: 1px solid var(--border-dark);
+  border-radius: 4px;
+  padding: 8px 10px;
+}
+
+.card-header-mono {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: var(--font-mono);
+  font-size: 9px;
+  font-weight: bold;
+  color: var(--text-muted);
+  margin-bottom: 6px;
+}
+
+.mini-btn {
+  background: var(--card-dark);
+  border: 1px solid var(--border-dark);
+  color: var(--safety-amber);
+  font-family: var(--font-mono);
+  font-size: 8px;
+  font-weight: bold;
+  padding: 2px 6px;
+  border-radius: 2px;
+  cursor: pointer;
+}
+
+#radarCanvas {
+  width: 100%;
+  height: 150px;
+  display: block;
+  background: #090C10;
+  border-radius: 2px;
+}
+
+/* Primary Action Button */
+.btn-primary-action {
+  width: 100%;
+  height: 52px;
+  background: var(--safety-amber);
+  color: #000;
+  border: none;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-size: 14px;
+  font-weight: 900;
+  cursor: pointer;
+}
+
+.btn-primary-action:active {
+  transform: scale(0.99);
+  filter: brightness(0.9);
+}
+
+/* Topographic Map Canvas */
+.topo-map-section {
+  background: var(--surface-dark);
+  border: 1px solid var(--border-dark);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.map-toolbar {
+  padding: 6px 10px;
+  background: var(--card-dark);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.layer-toggles {
+  display: flex;
+  gap: 4px;
+}
+
+.toggle-btn {
+  background: var(--surface-dark);
+  border: 1px solid var(--border-dark);
+  color: var(--text-light);
+  font-family: var(--font-mono);
+  font-size: 9px;
+  font-weight: bold;
+  padding: 3px 6px;
+  border-radius: 2px;
+  cursor: pointer;
+}
+
+.toggle-btn.active {
+  background: var(--safety-amber);
+  color: #000;
+  border-color: var(--safety-amber);
+}
+
+.canvas-wrapper {
+  position: relative;
+  background: #090C10;
+}
+
+#topoCanvas {
+  width: 100%;
+  height: 240px;
+  display: block;
+}
+
+.topo-legend {
+  position: absolute;
+  bottom: 6px;
+  left: 10px;
+  right: 10px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(13, 17, 23, 0.75);
+  padding: 3px 8px;
+  border-radius: 2px;
+}
+
+.legend-bar {
+  flex-grow: 1;
+  height: 6px;
+  border-radius: 2px;
+  background: linear-gradient(to right, #065F46, #10B981, #FBBF24, #EA580C, #F8FAFC);
+}
+
+.topo-stats-footer {
+  padding: 6px 10px;
+  background: var(--card-dark);
+  display: flex;
+  justify-content: space-between;
+}
+
+.stat-col {
+  display: flex;
+  flex-direction: column;
+}
+
+.stat-col .lbl {
+  font-family: var(--font-mono);
+  font-size: 8px;
+  color: var(--text-muted);
+}
+
+.stat-col .val {
+  font-size: 11px;
+  font-weight: bold;
+  color: var(--text-light);
+}
+
+/* Export Section */
+.export-card {
+  background: var(--surface-dark);
+  border: 1px solid var(--border-dark);
+  border-radius: 4px;
+  padding: 10px;
+}
+
+.export-actions {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  margin-top: 6px;
+}
+
+.export-btn {
+  background: var(--card-dark);
+  border: 1px solid var(--border-dark);
+  color: var(--text-light);
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: bold;
+  padding: 8px;
+  border-radius: 2px;
+  cursor: pointer;
+}
+
+.export-btn:hover {
+  border-color: var(--safety-amber);
+  color: var(--safety-amber);
+}
+
+/* Utilities */
+.mono { font-family: var(--font-mono); }
+.text-green { color: var(--status-green); }
+.text-cyan { color: var(--laser-cyan); }
+.text-amber { color: var(--safety-amber); }
